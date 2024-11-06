@@ -10,6 +10,9 @@ import { Profile, ProfileSchema } from 'src/schemas/profile.schema';
 import { JwtStrategy } from 'src/strategies/jwt.strategy';
 import { ProfileController } from 'src/controllers/profile.controller';
 import { ProfileService } from 'src/services/profile.service';
+import { Message, MessageSchema } from 'src/schemas/message.schema';
+import { MessageController } from 'src/controllers/message.controller';
+import { MessageService } from 'src/services/message.service';
 
 @Module({
   imports: [
@@ -17,13 +20,14 @@ import { ProfileService } from 'src/services/profile.service';
     MongooseModule.forFeature([
       { name: User.name, schema: UserSchema },
       { name: Profile.name, schema: ProfileSchema },
+      { name: Message.name, schema: MessageSchema },
     ]),
     JwtModule.register({
       secret: 'very-secret-key', // Use a strong, secure key
       signOptions: { expiresIn: '1h' },
     }),
   ],
-  controllers: [AppController, AuthController, ProfileController],
-  providers: [AppService, AuthService, ProfileService, JwtStrategy],
+  controllers: [AppController, AuthController, ProfileController, MessageController],
+  providers: [AppService, AuthService, ProfileService, MessageService, JwtStrategy],
 })
 export class AppModule {}
