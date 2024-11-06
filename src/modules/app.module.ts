@@ -8,6 +8,8 @@ import { AuthController } from 'src/controllers/auth.controller';
 import { JwtModule } from '@nestjs/jwt';
 import { Profile, ProfileSchema } from 'src/schemas/profile.schema';
 import { JwtStrategy } from 'src/strategies/jwt.strategy';
+import { ProfileController } from 'src/controllers/profile.controller';
+import { ProfileService } from 'src/services/profile.service';
 
 @Module({
   imports: [
@@ -21,7 +23,7 @@ import { JwtStrategy } from 'src/strategies/jwt.strategy';
       signOptions: { expiresIn: '1h' },
     }),
   ],
-  controllers: [AppController, AuthController],
-  providers: [AppService, AuthService, JwtStrategy],
+  controllers: [AppController, AuthController, ProfileController],
+  providers: [AppService, AuthService, ProfileService, JwtStrategy],
 })
 export class AppModule {}

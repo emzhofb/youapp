@@ -3,7 +3,7 @@ import { IsString, IsDate, IsEnum, IsNumber, IsArray, ArrayNotEmpty } from 'clas
 
 export class CreateProfileDto {
   @IsString()
-  displayName: string;
+  fullname: string;
 
   @IsEnum(['male', 'female', 'other'])
   gender: string;

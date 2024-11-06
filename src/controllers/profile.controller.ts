@@ -1,8 +1,9 @@
 // src/controllers/profile.controller.ts
-import { Controller, Post, Body, Req, UseGuards, HttpCode } from '@nestjs/common';
+import { Controller, Post, Body, Req, UseGuards, HttpCode, Get } from '@nestjs/common';
 import { ProfileService } from 'src/services/profile.service';
 import { CreateProfileDto } from 'src/dto/create-profile.dto';
 import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
+import { Profile } from 'src/schemas/profile.schema';
 
 @Controller('profile')
 export class ProfileController {
@@ -12,7 +13,23 @@ export class ProfileController {
   @HttpCode(201)
   @Post('create')
   async createProfile(@Body() createProfileDto: CreateProfileDto, @Req() req) {
-    const userId = req.user.userId; // Assumes `userId` is available from JWT payload
+    const userId = req.user._id; // Assumes `user._id` is available from JWT payload
     return this.profileService.createOrUpdateProfile(userId, createProfileDto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @HttpCode(200)
+  @Post('update')
+  async updateProfile(@Body() createProfileDto: CreateProfileDto, @Req() req) {
+    const userId = req.user._id; // Assumes `user._id` is available from JWT payload
+    return this.profileService.createOrUpdateProfile(userId, createProfileDto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @HttpCode(200)
+  @Get('me')
+  async getProfile(@Req() req) {
+    const userId = req.user._id; // Assumes `user._id` is available from JWT payload
+    return this.profileService.getProfile(userId); // Fetch the profile from the service
   }
 }

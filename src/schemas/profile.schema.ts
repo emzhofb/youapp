@@ -8,18 +8,18 @@ export class Profile extends Document {
   userId: Types.ObjectId;
 
   @Prop({ required: true })
-  displayName: string;
+  fullname: string;
 
   @Prop({ required: true })
   gender: string;
 
-  @Prop({ required: true })
+  @Prop()
   birthday: Date;
 
-  @Prop({ required: true })
+  @Prop()
   horoscope: string;
 
-  @Prop({ required: true })
+  @Prop()
   zodiac: string;
 
   @Prop()
